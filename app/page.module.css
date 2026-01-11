@@ -80,8 +80,8 @@
   height: 80px;
   border-radius: 50%;
   border: none;
-  background-color: #3b82f6;
-  color: #ffffff;
+  background-color: #ff0000;
+  color: #ff0000;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -91,7 +91,7 @@
 }
 
 .microphoneButton:hover:not(:disabled) {
-  background-color: #2563eb;
+  background-color: #dc2626;
   transform: scale(1.05);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
@@ -106,12 +106,13 @@
 }
 
 .microphoneButton.active {
-  background-color: #ef4444;
+  background-color: #000000;
+  color: #ffffff;
   animation: buttonPulse 2s ease-in-out infinite;
 }
 
 .microphoneButton.active:hover:not(:disabled) {
-  background-color: #dc2626;
+  background-color: #1a1a1a;
 }
 
 @keyframes buttonPulse {
@@ -119,7 +120,7 @@
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   50% {
-    box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.4), 0 2px 4px -1px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 }
 

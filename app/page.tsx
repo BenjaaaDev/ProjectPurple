@@ -28,7 +28,10 @@ export default function Page() {
     setError(null);
 
     try {
-      const tokenRes = await fetch("/api/realtime-token");
+      const tokenRes = await fetch("/api/realtime-token", {
+        method: "POST",
+        cache: "no-store",
+      });
       const tokenData = await tokenRes.json();
       if (!tokenRes.ok) throw new Error(tokenData?.error ?? "Error al obtener token");
 

@@ -13,8 +13,12 @@ export default function Page() {
   useEffect(() => {
     // Limpiar sesión al desmontar
     return () => {
-      if (sessionRef.current) {
-        sessionRef.current.disconnect?.().catch(console.error);
+      try {
+        sessionRef.current?.close?.(); // ✅ método correcto
+      } catch (e) {
+        console.error(e);
+      } finally {
+        sessionRef.current = null;
       }
     };
   }, []);
@@ -47,9 +51,9 @@ export default function Page() {
     }
   }
 
-  async function disconnect() {
+  function disconnect() {
     try {
-      await sessionRef.current?.disconnect?.();
+      sessionRef.current?.close?.(); // ✅ método correcto
     } catch (e) {
       console.error("Error al desconectar:", e);
     } finally {
@@ -71,7 +75,7 @@ export default function Page() {
     <main className={styles.main}>
       <div className={styles.container}>
         <div className={styles.circleWrapper}>
-          <div 
+          <div
             className={`${styles.circle} ${isListening ? styles.pulsing : ""}`}
             aria-hidden="true"
           />
@@ -84,9 +88,7 @@ export default function Page() {
             {status === "connected" && "Escuchando..."}
             {status === "error" && "Error de conexión"}
           </p>
-          {error && (
-            <p className={styles.errorText}>{error}</p>
-          )}
+          {error && <p className={styles.errorText}>{error}</p>}
         </div>
 
         <button

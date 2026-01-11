@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export const dynamic = "force-dynamic"; // 🚫 desactiva Full Route Cache
+export const revalidate = 0;
+
+export async function POST() {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     return NextResponse.json({ error: "Missing OPENAI_API_KEY" }, { status: 500 });
@@ -24,6 +27,7 @@ export async function GET() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(body),
+    cache: "no-store",
   });
 
   if (!r.ok) {
@@ -32,5 +36,13 @@ export async function GET() {
   }
 
   const data = await r.json();
-  return NextResponse.json({ value: data.value });
+
+  return NextResponse.json(
+    { value: data.value },
+    {
+      headers: {
+        "Cache-Control": "no-store, max-age=0, must-revalidate",
+      },
+    }
+  );
 }
